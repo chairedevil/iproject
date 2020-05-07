@@ -20,13 +20,13 @@ class users_seed extends Seeder
         $user1 = User::create([
             'name' => 'user01',
             'email' => 'user01@mail.com',
-            'password' => '123456',
+            'password' => bcrypt('123456'),
             'ava_path' => 'ava1.jpg'
         ]);
         $user2 = User::create([
             'name' => 'user02',
             'email' => 'user02@mail.com',
-            'password' => '123456',
+            'password' => bcrypt('123456'),
             'ava_path' => 'ava2.jpg'
         ]);
 
