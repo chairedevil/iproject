@@ -19,4 +19,12 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 
-Route::apiResource('users', 'Api\UserController');
+Route::post('login', 'Api\LoginController@login')->name('login');
+
+Route::middleware('auth:api')->group(function(){
+    Route::apiResource('users', 'Api\UserController');
+});
+
+Route::get('authfailed', function () {
+    return response()->json(['msg' => 'Authentication Failed']);
+})->name('authFailed');
