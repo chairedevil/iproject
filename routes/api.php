@@ -24,6 +24,7 @@ Route::apiResource('/products', 'Api\ProductController', ['only' => ['index']]);
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/mylist', 'Api\UserController@mylist');
+    Route::patch('/reserve', 'Api\UserController@mylist');
     Route::apiResource('/users', 'Api\UserController');
     Route::apiResource('/products', 'Api\ProductController', ['only' => ['store']]);
     Route::get('/user', function (Request $request) {

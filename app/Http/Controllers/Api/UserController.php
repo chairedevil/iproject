@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -75,8 +76,12 @@ class UserController extends BaseController
     {
 
         $user = Auth::user();
-        $list = $user->user_product_list_seller()->get();
-
-        return $this->sendResponse($list, 'get my list');
+        //$sell_list = $user->join('user_product_lists', 'user_product_lists.seller_id', '=', 'users.id')->where('users.id', $user->id)->get();
+        $sell_list_query = DB::raw("SELECT user_product_lists.id as list_id, products.img_path, products.name as pname, products.price, buyer.name, buyer.id, buyer.ava_path, user_product_lists.status FROM user_product_lists JOIN products ON products.id = user_product_lists.product_id LEFT JOIN users AS seller ON seller.id = user_product_lists.seller_id LEFT JOIN users AS buyer ON buyer.id = user_product_lists.buyer_id WHERE user_product_lists.seller_id = " . $user->id);
+        $sell_list = DB::select($sell_list_query);
+        $buy_list_query =  DB::raw("SELECT user_product_lists.id as list_id, products.img_path, products.name as pname, products.price, seller.name, seller.id, seller.ava_path, user_product_lists.status FROM user_product_lists JOIN products ON products.id = user_product_lists.product_id LEFT JOIN users AS seller ON seller.id = user_product_lists.seller_id LEFT JOIN users AS buyer ON buyer.id = user_product_lists.buyer_id WHERE user_product_lists.buyer_id = " . $user->id);
+        $buy_list = DB::select($buy_list_query);
+        
+        return $this->sendResponse([$sell_list, $buy_list], 'get my list');
     }
 }
