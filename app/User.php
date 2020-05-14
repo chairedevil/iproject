@@ -28,12 +28,17 @@ class User extends Authenticatable
 
     public function user_product_list_buyer()
     {
-        return $this->hasMany(Chat::class, 'buyer_id');
+        return $this->hasMany(User_product_list::class, 'buyer_id');
     }
 
     public function user_product_list_seller()
     {
-        return $this->hasMany(Chat::class, 'seller_id');
+        return $this->hasMany(User_product_list::class, 'seller_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'seller_id');
     }
 
     /**

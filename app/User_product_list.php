@@ -17,6 +17,8 @@ class User_product_list extends Model
     }
 
     public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->hasOne(Product::class, 'product_id');
     }
+
+    protected $fillable = ['product_id', 'buyer_id', 'seller_id', 'status'];
 }

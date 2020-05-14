@@ -16,9 +16,9 @@ class CreateUserProductListsTable extends Migration
         Schema::create('user_product_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->foreignId('buyer_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('buyer_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
-            $table->integer('status');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

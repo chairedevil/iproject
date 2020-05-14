@@ -11,13 +11,20 @@ class Product extends Model
         $this->belongsTo(Category::class);
     }
 
-    public function user_product_lists()
+    public function user_product_list()
     {
-        return $this->hasMany(user_product_list::class, 'product_id');
+        return $this->hasOne(user_product_list::class, 'product_id');
     }
 
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    protected $fillable = ['category_id', 'name', 'desc', 'price', 'lat', 'lng', 'img_path'];
 }

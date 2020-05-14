@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserCollection;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -68,5 +69,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function mylist()
+    {
+
+        $user = Auth::user();
+        $list = $user->user_product_list_seller()->get();
+
+        return $this->sendResponse($list, 'get my list');
     }
 }

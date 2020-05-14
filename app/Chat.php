@@ -15,4 +15,6 @@ class Chat extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    protected $fillable = ['sender_id', 'receiver_id', 'msg'];
 }
