@@ -24,7 +24,11 @@ Route::apiResource('/products', 'Api\ProductController', ['only' => ['index']]);
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/mylist', 'Api\UserController@mylist');
-    Route::patch('/reserve', 'Api\UserController@mylist');
+    Route::patch('/reserve', 'Api\UserProductListsController@reserve');
+    Route::patch('/cancel_reserve', 'Api\UserProductListsController@cancel_reserve');
+    Route::patch('/delete_product', 'Api\UserProductListsController@delete_product');
+    Route::patch('/done_transaction', 'Api\UserProductListsController@done_transaction');
+    Route::patch('/rate_user', 'Api\UserProductListsController@rate_user');
     Route::apiResource('/users', 'Api\UserController');
     Route::apiResource('/products', 'Api\ProductController', ['only' => ['store']]);
     Route::get('/user', function (Request $request) {
