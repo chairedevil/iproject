@@ -112,6 +112,23 @@ class ProductController extends BaseController
         return $this->sendResponse($input, 'get products');
     }
 
+    public function add_img(Request $request)
+    {
+        $user = Auth::user();
+        $filename = "";
+
+        if($file = $request->file('image')){
+            $name = time().$file->getClientOriginalName();
+            $file->move('images', $name);
+            $filename = $name;
+        }else{
+            return $this->sendError('no image');
+        }
+
+
+        return $this->sendResponse($filename, 'add image');
+    }
+
     /**
      * Display the specified resource.
      *

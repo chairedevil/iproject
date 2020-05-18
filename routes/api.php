@@ -29,8 +29,12 @@ Route::middleware('auth:api')->group(function(){
     Route::patch('/delete_product', 'Api\UserProductListsController@delete_product');
     Route::patch('/done_transaction', 'Api\UserProductListsController@done_transaction');
     Route::patch('/rate_user', 'Api\UserProductListsController@rate_user');
+    Route::get('/msguserlist', 'Api\ChatController@get_msg_userlist');
+    Route::get('/msg', 'Api\ChatController@get_msg');
+    Route::post('/sendmsg', 'Api\ChatController@insert_msg');
     Route::apiResource('/users', 'Api\UserController');
     Route::apiResource('/products', 'Api\ProductController', ['only' => ['store']]);
+    Route::post('/add_img', 'Api\ProductController@add_img');
     Route::get('/user', function (Request $request) {
         //return $request->user()->only(['id', 'name', 'email', 'ava_path']);
         return response()->json(['data' => $request->user()->only(['id', 'name', 'email', 'ava_path'])], 200);
