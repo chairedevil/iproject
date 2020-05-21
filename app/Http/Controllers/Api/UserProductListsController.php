@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 use App\Rating;
 use App\User_product_list;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,13 @@ class UserProductListsController extends BaseController
         $product_list->update([
             'buyer_id' => $user->id,
             'status' => 2
+        ]);
+
+        $productData = Product::find($product_id);
+        
+        $user->chats_sender()->create([
+            'receiver_id' => $product_list->seller_id,
+            'msg' => "['reserved', '{$productData->name}', '{$productData->img_path}']"
         ]);
 
         return $this->sendResponse([], 'reserved');

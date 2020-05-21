@@ -22,7 +22,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', 'Api\LoginController@login')->name('login');
 Route::apiResource('/products', 'Api\ProductController', ['only' => ['index']]);
 
+Route::get('/public_event', function(){
+    broadcast(new \App\Events\PublicEvent);
+    return 'public';
+});
+
 Route::middleware('auth:api')->group(function(){
+
+    // Route::get('/private_chat', function(){
+    //     broadcast(new \App\Events\PrivateChatEvent);
+    //     return 'private';
+    // });
+
     Route::get('/mylist', 'Api\UserController@mylist');
     Route::patch('/reserve', 'Api\UserProductListsController@reserve');
     Route::patch('/cancel_reserve', 'Api\UserProductListsController@cancel_reserve');

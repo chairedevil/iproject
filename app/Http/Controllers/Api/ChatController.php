@@ -39,9 +39,11 @@ class ChatController extends BaseController
         $target_user = $query_array['target_user'];
 
         $done_msg = $user->chats_sender()->create([
-            'receiver_id' =>  $target_user,
+            'receiver_id' => $target_user,
             'msg' => $msg
         ]);
+
+        broadcast(new \App\Events\PrivateChatEvent($target_user));
 
         return $this->sendResponse($done_msg, 'send msg');
     }

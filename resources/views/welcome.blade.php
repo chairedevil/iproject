@@ -83,7 +83,7 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
+                <p>{{ csrf_token() }}</p>
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
