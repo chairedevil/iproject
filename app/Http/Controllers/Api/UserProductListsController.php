@@ -32,7 +32,7 @@ class UserProductListsController extends BaseController
         
         $user->chats_sender()->create([
             'receiver_id' => $product_list->seller_id,
-            'msg' => "['reserved', '{$productData->name}', '{$productData->img_path}']"
+            'msg' => "[reserved,{$productData->name},{$productData->img_path}]"
         ]);
 
         return $this->sendResponse([], 'reserved');
