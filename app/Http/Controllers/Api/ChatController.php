@@ -13,7 +13,7 @@ class ChatController extends BaseController
     {
         $user = Auth::user();
 
-        $query = DB::raw("SELECT DISTINCT users.id, users.name, users.ava_path FROM chats JOIN users ON users.id = chats.sender_id OR users.id = chats.receiver_id WHERE users.id <> " . $user->id);
+        $query = DB::raw("SELECT DISTINCT users.id, users.name, users.ava_path, MAX(chats.created_at) AS created_time FROM chats JOIN users ON users.id = chats.sender_id OR users.id = chats.receiver_id WHERE users.id <> " . $user->id . " AND ( chats.sender_id = " . $user->id . " OR chats.receiver_id = " . $user->id . ") GROUP BY users.id ORDER BY created_time DESC");
         $list = DB::select($query);
 
         return $this->sendResponse($list, 'get_msg_userlist');

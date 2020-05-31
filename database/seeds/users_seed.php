@@ -35,9 +35,9 @@ class users_seed extends Seeder
             'password' => bcrypt('123456'),
             'ava_path' => 'user3.png'
         ]);
-        $user3 = User::create([
-            'name' => 'user03',
-            'email' => 'user03@mail.com',
+        $user4 = User::create([
+            'name' => 'user04',
+            'email' => 'user04@mail.com',
             'password' => bcrypt('123456'),
             'ava_path' => 'user4.png'
         ]);
@@ -47,7 +47,7 @@ class users_seed extends Seeder
             'msg' => 'Hi!'
         ]);
 
-        $categories = ['家具', '家電', '自転車', '服・ファッション', '携帯電話・スマホ', 'おもちゃ', 'パソコン', 'チケット', 'その他'];
+        $categories = ['家具', '家電', '自転車', '服・ファッション', '携帯電話・スマホ', 'おもちゃ', 'パソコン', 'チケット', 'カメラ・レンズ', 'その他'];
         foreach($categories as $category){
             Category::create([
                 'name' => $category
@@ -106,7 +106,7 @@ class users_seed extends Seeder
             'name' => 'METAL BUILD ストライクガンダム',
             'desc' => '<p><img src="http://localhost:8000/api/../images/item_0000012955_dhzoBx72_01.jpg"></p><p><img src="http://localhost:8000/api/../images/item_0000012955_dhzoBx72_03.jpg"></p>',
             'price' => 16000,
-            'img_path' => '61ovkSA9p4L._AC_SL1500_.jpg',
+            'img_path' => '1000134667_1.jpg',
             'lat' => 35.658162,
             'lng' => 139.699972
         ]);
@@ -140,6 +140,75 @@ class users_seed extends Seeder
         ]);
         foreach(['gundam', 'ガンダム', 'ガンプラー', 'モデル', 'ストライカー'] as $tag){
             $product4->tags()->attach([
+                Tag::firstOrCreate(['name' => $tag])->id
+            ]);
+        }
+
+        //--------------------
+
+        $product5 = Product::create([
+            'seller_id' => $user2->id,
+            'category_id' => 9,
+            'name' => 'ニコン（Nikon）D500 ﾎﾞﾃﾞｨ',
+            'desc' => '<p>付属品: ストラップ、取扱説明書、バッテリー１個、充電器、ボディキャップ、USBケーブルクリップ、HDMIケーブルクリップ</p><p></p>外観小スレあり、記入済みメーカー保証書2021年3月2日まで有効。元箱は16-80レンズキッドのものです。<p><img src="http://localhost:8000/api/../images/nikon2.jpg"></p><p><img src="http://localhost:8000/api/../images/nikon3.jpg"></p>',
+            'price' => 110000,
+            'img_path' => 'nikon1.jpg',
+            'lat' => 35.67812547946558,
+            'lng' => 139.70274912938882
+        ]);
+        $user3->user_product_list_seller()->create([
+            'product_id' => $product5->id,
+            'buyer_id' => null,
+            'status' => 1
+        ]);
+        foreach(['nikon', 'ニコン', 'd500'] as $tag){
+            $product5->tags()->attach([
+                Tag::firstOrCreate(['name' => $tag])->id
+            ]);
+        }
+
+        //--------------------
+
+        $product6 = Product::create([
+            'seller_id' => $user4->id,
+            'category_id' => 9,
+            'name' => 'ニコン（Nikon） AF-P DX NIKKOR 10-20/4.5-5.6G VR',
+            'desc' => '<p>付属品: レンズフロントキャップ、レンズリアキャップ</p><p></p>外観小スレあり、レンズ内小ゴミあり、外観小キズあり<p><img src="http://localhost:8000/api/../images/nilens2.jpg"></p><p><img src="http://localhost:8000/api/../images/nilens3.jpg"></p>',
+            'price' => 23100,
+            'img_path' => 'nilens1.jpg',
+            'lat' => 35.67064537035959,
+            'lng' => 139.71802245769976
+        ]);
+        $user4->user_product_list_seller()->create([
+            'product_id' => $product6->id,
+            'buyer_id' => null,
+            'status' => 1
+        ]);
+        foreach(['nikon', 'ニコン', 'nikkor', 'lens', 'レンズ'] as $tag){
+            $product6->tags()->attach([
+                Tag::firstOrCreate(['name' => $tag])->id
+            ]);
+        }
+
+        //--------------------
+
+        $product7 = Product::create([
+            'seller_id' => $user4->id,
+            'category_id' => 9,
+            'name' => 'X-T3 ズームレンズキット シルバー',
+            'desc' => '<p>付属品：外箱、バッテリーパック、バッテリーチャージャー、フロントキャップ、マウント部キャップ、レンズ、レンズフード</p><p><img src="http://localhost:8000/api/../images/15904616152133021012382_3.jpg"></p><p><img src="http://localhost:8000/api/../images/15904616242133021012382_2.jpg"></p><p><br></p><p><img src="http://localhost:8000/api/../images/15904616372133021012382_4.jpg"></p><p><img src="http://localhost:8000/api/../images/15904616612133021012382_5.jpg"></p><p><img src="http://localhost:8000/api/../images/15904616702133021012382_6.jpg"></p>',
+            'price' => 129228,
+            'img_path' => '15904618612133021012382_1.jpg',
+            'lat' => 35.661074,
+            'lng' => 139.684581
+        ]);
+        $user4->user_product_list_seller()->create([
+            'product_id' => $product7->id,
+            'buyer_id' => null,
+            'status' => 1
+        ]);
+        foreach(['fujifilm', 'x-t3'] as $tag){
+            $product7->tags()->attach([
                 Tag::firstOrCreate(['name' => $tag])->id
             ]);
         }
